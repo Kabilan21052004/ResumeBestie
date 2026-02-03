@@ -119,19 +119,59 @@ async def analyze_resume(request: Request, file: UploadFile = File(...)):
 
         # 2. Analyze with Groq
         system_prompt = """
-        You are an elite career coach. Analyze the resume text provided.
-        Return a strict JSON object with this schema:
+        You are an elite career coach. Analyze the resume text provided and extract ALL relevant information.
+        Return a strict JSON object with this comprehensive schema:
         {
-          "personal_info": { "name": "String", "email": "String" },
+          "personal_info": { 
+            "name": "String", 
+            "email": "String",
+            "phone": "String (optional)",
+            "linkedin": "String (optional)",
+            "github": "String (optional)",
+            "portfolio": "String (optional)"
+          },
           "predicted_role": "String",
-          "executive_summary": "String",
+          "executive_summary": "String (2-3 sentences about the candidate)",
           "skills": ["String"],
-          "experience_years": "String",
+          "experience_years": "String (total years)",
+          "education": [
+            {
+              "degree": "String",
+              "institution": "String",
+              "year": "String",
+              "gpa": "String (optional)"
+            }
+          ],
+          "certifications": [
+            {
+              "name": "String",
+              "issuer": "String (optional)",
+              "date": "String (optional)"
+            }
+          ],
+          "projects": [
+            {
+              "name": "String",
+              "description": "String (brief)",
+              "technologies": ["String"],
+              "link": "String (optional)"
+            }
+          ],
+          "work_experience": [
+            {
+              "company": "String",
+              "role": "String",
+              "duration": "String",
+              "responsibilities": ["String"]
+            }
+          ],
+          "achievements": ["String (notable achievements, awards, publications)"],
           "improvements": [{ "type": "critical" | "recommended", "suggestion": "String" }],
-          "search_params": { "keyword": "String", "location": "String", "experience": "Number (years)" }
+          "search_params": { "keyword": "String (best job title)", "location": "String", "experience": "Number (years)" }
         }
         
-        The 'search_params' are CRITICAL. Infer the best job title keyword, location (default to 'India' or 'Remote' if not found), and years of experience (as a string number, e.g. "2").
+        CRITICAL: Extract ALL sections present in the resume. If a section is missing, use an empty array [].
+        The 'search_params' should infer the best job title keyword, location (default to 'India' or 'Remote' if not found), and years of experience.
         """
 
         chat_completion = client.chat.completions.create(
