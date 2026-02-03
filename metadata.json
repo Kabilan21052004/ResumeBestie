@@ -1,0 +1,6 @@
+{
+  "name": "ResumeBestie",
+  "description": "Premium AI-powered resume analyzer, career coach, and job matcher utilizing Gemini 3 Pro.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
