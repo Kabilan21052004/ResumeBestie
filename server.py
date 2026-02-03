@@ -170,8 +170,16 @@ async def analyze_resume(request: Request, file: UploadFile = File(...)):
           "search_params": { "keyword": "String (best job title)", "location": "String", "experience": "Number (years)" }
         }
         
-        CRITICAL: Extract ALL sections present in the resume. If a section is missing, use an empty array [].
-        The 'search_params' should infer the best job title keyword, location (default to 'India' or 'Remote' if not found), and years of experience.
+        CRITICAL INSTRUCTIONS:
+        1. Extract ALL sections present in the resume. If a section is missing, use an empty array [].
+        2. The 'search_params' should infer the best job title keyword, location (default to 'India' or 'Remote' if not found), and years of experience.
+        3. For 'improvements', provide SPECIFIC, ACTIONABLE advice:
+           - ❌ BAD: "Gain more experience" or "Tailor resume to job openings"
+           - ✅ GOOD: "Add quantifiable metrics to your project descriptions (e.g., 'Reduced API response time by 40%')"
+           - ✅ GOOD: "Include specific technologies used in each project (e.g., 'Built with React, Node.js, PostgreSQL')"
+           - ✅ GOOD: "Add a 'Summary' section at the top highlighting your 3 strongest technical skills"
+           - Focus on: missing sections, weak descriptions, lack of metrics, formatting issues, missing keywords for ATS
+           - Each suggestion should be something they can implement TODAY
         """
 
         chat_completion = client.chat.completions.create(
