@@ -4,6 +4,8 @@
 
 ResumeBestie is a premium, high-energy AI application that analyzes your resume, gives you "roast & toast" feedback, and instantly matches you with live job openings on Naukri.com.
 
+![ResumeBestie Screenshot](https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6)
+
 ## ✨ Features
 
 - **📄 AI Resume Analysis**: Uses **Llama-3-70b (via Groq)** to deeply analyze your resume's strengths, weaknesses, and vibe.
