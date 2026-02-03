@@ -168,12 +168,7 @@ function App() {
                 },
                 body: JSON.stringify({
                     message: input,
-                    context: {
-                        name: analysis.personal_info.name,
-                        role: analysis.predicted_role,
-                        skills: analysis.skills,
-                        // Add any other context fields if the backend needs them
-                    }
+                    context: analysis  // Send the entire analysis object
                 }),
             });
 
