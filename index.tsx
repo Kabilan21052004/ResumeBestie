@@ -18,6 +18,9 @@ import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 
 import DottedGlowBackground from './components/DottedGlowBackground';
+
+// API Base URL - uses current origin in production, localhost in development
+const API_BASE_URL = import.meta.env.DEV ? 'http://localhost:8000' : '';
 import {
     SparklesIcon,
     ArrowUpIcon,
@@ -104,7 +107,7 @@ function App() {
         formData.append('file', file);
 
         try {
-            const response = await fetch('http://localhost:8000/api/analyze', {
+            const response = await fetch(`${API_BASE_URL}/api/analyze`, {
                 method: 'POST',
                 headers: {
                     'X-Google-Id': user.uid || user.sub
@@ -158,7 +161,7 @@ function App() {
         setIsChatLoading(true);
 
         try {
-            const response = await fetch('http://localhost:8000/api/chat', {
+            const response = await fetch(`${API_BASE_URL}/api/chat`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -229,7 +232,7 @@ function App() {
                             onSuccess={async (credentialResponse) => {
                                 if (credentialResponse.credential) {
                                     try {
-                                        const res = await fetch('http://localhost:8000/api/auth/google', {
+                                        const res = await fetch(`${API_BASE_URL}/api/auth/google`, {
                                             method: 'POST',
                                             headers: { 'Content-Type': 'application/json' },
                                             body: JSON.stringify({ credential: credentialResponse.credential })
